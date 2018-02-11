@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Factory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,13 +65,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $factory = Factory::where('name', $data['factory'])->first();
+
         if(isset($data['job'])){
           return User::create([
               'name' => $data['name'],
               'email' => $data['email'],
               'username' => $data['username'],
               'password' => bcrypt($data['password']),
-              'factory'  => $data['factory'],
+              'factory_id'  => $factory['id'],
               'job'   => $data['job'],
               'isActive' => 0,
           ]);
@@ -82,7 +85,7 @@ class RegisterController extends Controller
               'email' => $data['email'],
               'username' => $data['username'],
               'password' => bcrypt($data['password']),
-              'factory'  => $data['factory'],
+              'factory_id'  => $factory['id'],
               'isActive' => 0,
           ]);
         }

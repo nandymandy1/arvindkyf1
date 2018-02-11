@@ -37,6 +37,7 @@ class HomeController extends Controller
     {
           if(Auth::user()->isActive)
           {
+
             if(Auth::user()->type == 'admin')
             {
               $redirect = 'admin.dashboard';
@@ -47,11 +48,11 @@ class HomeController extends Controller
                 $factory = Factory::find(Auth::user()->factory_id);
                 case 'master':
                   $redirect = 'factory.dashboard';
-                  $report_cut = CKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
-                  $report_sew = SKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
-                  $report_gen = GKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
-                  $report_finish = FKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
-                  $report_quality = QKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
+                  $report_cut = CKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+                  $report_sew = SKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+                  $report_gen = GKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+                  $report_finish = FKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+                  $report_quality = QKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
                   $reports = [
                     'cutting' => $report_cut,
                     'sewing'  => $report_sew,
@@ -63,23 +64,23 @@ class HomeController extends Controller
 
                 case 'cutting':
                   $redirect = 'factory.cutting';
-                  $reports = CKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
+                  $reports = CKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
                   break;
 
                 case 'sewing':
                   $redirect = 'factory.sewing';
-                  $reports = SKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
+                  $reports = SKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
                   break;
 
                 case 'finishing':
                   $redirect = 'factory.finishing';
-                  $reports = FKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
+                  $reports = FKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
                   break;
 
                 case 'strength':
                   $redirect = 'factory.qua-strength';
-                  $reports[] = QKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
-                  $reporst[] = GKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'asc')->take(30);
+                  $reports[] = QKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+                  $reporst[] = GKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
                   break;
 
                 default:
@@ -88,6 +89,7 @@ class HomeController extends Controller
               }
             }
           }
+          // if the user is not active 
           else {
             $redirect = 'service.isnotactive';
           }
