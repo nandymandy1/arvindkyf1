@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/factorylist', 'DataController@fetchFactory');
+
+Route::get('/factory', 'DataController@getData');
