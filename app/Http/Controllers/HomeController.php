@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
+use Auth;
 use App\Factory;
 use App\User;
 use App\BMCkpi as BCKPI;
@@ -43,9 +45,9 @@ class HomeController extends Controller
               $redirect = 'admin.dashboard';
             }
             else {
+              $factory = Factory::find(Auth::user()->factory_id);
               // Check for the Factory User type and Reports Array Generation
               switch (Auth::user()->type) {
-                $factory = Factory::find(Auth::user()->factory_id);
                 case 'master':
                   $redirect = 'factory.dashboard';
                   $report_cut = CKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
@@ -89,7 +91,7 @@ class HomeController extends Controller
               }
             }
           }
-          // if the user is not active 
+          // if the user is not active
           else {
             $redirect = 'service.isnotactive';
           }
