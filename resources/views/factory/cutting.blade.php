@@ -2,7 +2,6 @@
 
 
 @section('content')
-
 <h3 class="page-heading mb-4">Charts</h3>
 <div class="row">
   <div class="col-lg-6 col-12 mb-4">

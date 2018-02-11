@@ -47,7 +47,7 @@ class HomeController extends Controller
             else {
               $factory = Factory::find(Auth::user()->factory_id);
               // Check for the Factory User type and Reports Array Generation
-              switch (Auth::user()->type) {
+              switch (Auth::user()->job) {
                 case 'master':
                   $redirect = 'factory.dashboard';
                   $report_cut = CKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
