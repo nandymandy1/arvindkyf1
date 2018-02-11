@@ -17,6 +17,7 @@
     <link href="{{ asset('css/flag-icon.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/perfect-scrollbar.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('assets/logo-sm.png') }}">
 
 </head>
 <body>
