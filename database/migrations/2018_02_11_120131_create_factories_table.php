@@ -18,7 +18,7 @@ class CreateFactoriesTable extends Migration
             $table->string('name');
             $table->string('contact');
             $table->string('email');
-            $table->string('user_id');
+            $table->string('user_id')->nullable();
             $table->integer('isActive')->default(0);
             $table->timestamps();
         });

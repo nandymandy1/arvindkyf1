@@ -18,7 +18,7 @@ class CreateDSkpisTable extends Migration
             $table->integer('factory_id');
             $table->integer('no_load');
             $table->integer('no_line');
-            $table->integer('elo');
+            $table->string('elo');
             $table->integer('so_pl');
             $table->integer('no_sew_mcs');
             $table->integer('no_people');

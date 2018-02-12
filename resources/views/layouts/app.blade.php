@@ -17,6 +17,7 @@
     <link href="{{ asset('css/flag-icon.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/perfect-scrollbar.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
     <link rel="shortcut icon" href="{{ asset('assets/logo-sm.png') }}">
 
 </head>
@@ -47,6 +48,7 @@
     <script src="{{ asset('js/misc.js') }}"></script>
     <script src="{{ asset('js/chart.js') }}"></script>
     <script src="{{ asset('js/maps.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 
     @yield('scripts')
 

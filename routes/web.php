@@ -18,15 +18,27 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/factorylist', 'DataController@fetchFactory');
-
-// Route::get('/timecheck', 'DataController@cuttingData');
-
-
 
 // Ajax Insert Data Controllers
 Route::post('/factory/postcutting', 'DataController@insertCuttingData')->name('ajaxdata.postcutting');
 Route::post('/factory/postsewing', 'DataController@insertSewingData')->name('ajaxdata.postsewing');
 Route::post('/factory/postfinishing', 'DataController@insertFinishingData')->name('ajaxdata.postfinishing');
 Route::post('/factroy/poststrength', 'DataController@insertStrengthData')->name('ajaxdata.poststrength');
+
+// Ajax Factory Tables To get all the factories list
+Route::get('/factories/getdata', 'AdminController@getFactories')->name('getfactories');
+
+// For admins
+Route::get('/admins/users', function(){
+  return view('admin.users');
+})->name('admin.users');
+
+
+
+
+
+
+
+
+// For Masters
