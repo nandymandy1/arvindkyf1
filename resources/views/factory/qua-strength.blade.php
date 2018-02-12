@@ -4,7 +4,7 @@
 @section('content')
 <div class="row">
   <div class="col-md-6">
-      <h3 class="page-heading mb-4">Strength</h3>
+      <h3 class="page-heading mb-4">Quality and Strength</h3>
   </div>
   <div class="col-md-6">
     <button type="button" class="btn btn-md btn-primary pull-right" id="add" name="button" data-toggle="modal" data-target="#strengthModal">Add Today's Data</button>
