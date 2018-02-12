@@ -4,7 +4,7 @@
 @section('content')
 <div class="row">
   <div class="col-md-6">
-      <h3 class="page-heading mb-4">Charts</h3>
+      <h3 class="page-heading mb-4">Cuting</h3>
   </div>
   <div class="col-md-6">
     <button type="button" class="btn btn-md btn-primary pull-right" id="add" name="button" data-toggle="modal" data-target="#cuttingModal">Add Today's Data</button>
@@ -73,7 +73,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-  $(document).ready(function(){
+  $(document).ready(() => {
     var shirtbox = $('#shirts');
     var knitbox = $('#knits');
     var womanbox = $('#women');
@@ -92,7 +92,7 @@
     trouser.hide();
     jean.hide();
 
-    shirtbox.change(function() {
+    shirtbox.change(() => {
       if(shirtbox.is(':checked')){
         shirt.show();
       }else{
@@ -100,7 +100,7 @@
       }
     });
 
-    knitbox.change(function() {
+    knitbox.change(() => {
       if(knitbox.is(':checked')){
         knit.show();
       }else{
@@ -108,7 +108,7 @@
       }
     });
 
-    womanbox.change(function() {
+    womanbox.change(() => {
       if(womanbox.is(':checked')){
         woman.show();
       }else{
@@ -116,7 +116,7 @@
       }
     });
 
-    trouserbox.change(function() {
+    trouserbox.change(() => {
       if(trouserbox.is(':checked')){
         trouser.show();
       }else{
@@ -124,7 +124,7 @@
       }
     });
 
-    jeanbox.change(function() {
+    jeanbox.change(() => {
       if(jeanbox.is(':checked')){
         jean.show();
       }else{
@@ -133,13 +133,13 @@
     });
 
     // Form subimssion method goes Here
-    $('#add').click(function(){
+    $('#add').click(() => {
       $('#cutting_form')[0].reset();
       $('#form-output').html('');
       $('#add_data').val('Add');
     });
 
-    $('#cutting_form').on('submit', function(event){
+    $('#cutting_form').on('submit', (event) => {
       event.preventDefault();
       var form_data = $(this).serialize();
 
@@ -148,7 +148,7 @@
         method: "POST",
         data: form_data,
         dataType: "json",
-        success: function(data) // Success CallBack function
+        success: (data) => // Success CallBack function
             {
               // console.log(data.error);
               if(data.error.length > 0)

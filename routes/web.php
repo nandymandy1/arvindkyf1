@@ -21,7 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/factorylist', 'DataController@fetchFactory');
 
-Route::get('/timecheck', 'DataController@cuttingData');
+// Route::get('/timecheck', 'DataController@cuttingData');
 
-// Ajax Data Controllers
+// Ajax Insert Data Controllers
 Route::post('/factory/postcutting', 'DataController@insertCuttingData')->name('ajaxdata.postcutting');
+Route::post('/factory/postsewing', 'DataController@insertSewingData')->name('ajaxdata.postsewing');

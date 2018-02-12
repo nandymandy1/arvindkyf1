@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Factory;
 use Carbon\Carbon;
 use App\DCkpi as CKPI;
+use App\DSkpi as SKPI;
 use Validator;
 
 class DataController extends Controller
@@ -56,7 +57,7 @@ class DataController extends Controller
         'no_bandkife' => 'required',
         'no_fusing' => 'required',
         'fusing_out' => 'required',
-        'no_stknife' => 'required',
+        'no_stknife' => 'required'
       ]);
       $errors = array();
       $success = '';
@@ -78,6 +79,7 @@ class DataController extends Controller
         $ckpi->no_fusing = $req->input('no_fusing');
         $ckpi->fusing_out = $req->input('fusing_out');
         $ckpi->save();
+        // Success Call Back on submission
         $success = '<div class="alert alert-success">
           Cutting Data Saved
         </div>';
@@ -87,6 +89,63 @@ class DataController extends Controller
         'success' => $success
       );
       echo json_encode($output); // Success Message
+    }
+    public function insertSewingData(Request $req)
+    {
+      $elo = '';
+      for($i=1; $i <= (integer)$req->input('no_lines'); $i++){
+        $elo .= 'l'.$i.':'.$req->input('line'.$i);
+      }
+
+      dd($elo);
+
+      $validation = Validator::make($req->all(), [
+        'factory_id'=> 'required',
+        'no_load' => 'required',
+        'no_lines' => 'required',
+        'so_pl' => 'required',
+        'no_sew_mcs' => 'required',
+        'no_people'  => 'required',
+        'no_help'   => 'required',
+        'no_kaja'   => 'required',
+        'no_opr'    => 'required',
+        'sam'       => 'required',
+        'no_send'   => 'required',
+      ]);
+
+      $errors = array();
+      $success = '';
+      if($validation->fails()){
+        foreach($validation->messages()->getMessages() as $fieldName => $messages){
+          $errors [] = $messages;
+        }
+      }else{
+        $skpi = new SKPI;
+        $skpi->factory_id   = $req->input('factory_id');
+        $skpi->no_load      = $req->input('no_loaded');
+        $skpi->no_line      = $req->input('no_lines');
+        $skpi->elo          = $elo;
+        $skpi->so_pl        = $req->input('so_pl');
+        $skpi->no_sew_mcs   = $req->input('no_sew_mcs');
+        $skpi->no_people    = $req->input('no_people');
+        $skpi->no_help      = $req->input('no_help');
+        $skpi->no_kaja      = $req->input('no_kaja');
+        $skpi->no_opr       = $req->input('no_opr');
+        $skpi->sam          = $req->input('sam');
+        $skpi->no_send      = $req->input('no_send');
+        $skpi->save();
+        // Success Call Back on submission
+        $success = '<div class="alert alert-success">
+          Sewing Data Saved
+        </div>';
+      }
+      $output = array(
+        'error' => $errors,
+        'success' => $success
+      );
+      echo json_encode($output); // Success Message
+
+
     }
 
 
