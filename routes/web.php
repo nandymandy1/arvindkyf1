@@ -20,3 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/factorylist', 'DataController@fetchFactory');
+
+Route::get('/timecheck', 'DataController@cuttingData');
+
+// Ajax Data Controllers
+Route::post('/factory/postcutting', 'DataController@insertCuttingData')->name('ajaxdata.postcutting');
