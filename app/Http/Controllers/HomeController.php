@@ -12,7 +12,7 @@ use App\BMCkpi as BCKPI;
 use App\BMQkpi as BQKPI;
 use App\BMSkpi as BSKPI;
 use App\DCkpi as CKPI;
-use App\DFkpi as DKPI;
+use App\DFkpi as FKPI;
 use App\DGkpi as GKPI;
 use App\DQkpi as QKPI;
 use App\DSkpi as SKPI;

@@ -23,6 +23,10 @@ Route::get('/factorylist', 'DataController@fetchFactory');
 
 // Route::get('/timecheck', 'DataController@cuttingData');
 
+
+
 // Ajax Insert Data Controllers
 Route::post('/factory/postcutting', 'DataController@insertCuttingData')->name('ajaxdata.postcutting');
 Route::post('/factory/postsewing', 'DataController@insertSewingData')->name('ajaxdata.postsewing');
+Route::post('/factory/postfinishing', 'DataController@insertFinishingData')->name('ajaxdata.postfinishing');
+Route::post('/factroy/poststrength', 'DataController@insertStrengthData')->name('ajaxdata.poststrength');

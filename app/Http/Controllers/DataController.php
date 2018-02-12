@@ -7,6 +7,9 @@ use App\Factory;
 use Carbon\Carbon;
 use App\DCkpi as CKPI;
 use App\DSkpi as SKPI;
+use App\DFkpi as FKPI;
+use App\DQkpi as QKPI;
+use App\DGKPI as GKPI;
 use Validator;
 
 class DataController extends Controller
@@ -149,6 +152,94 @@ class DataController extends Controller
       );
       echo json_encode($output); // Success Message
 
+
+    }
+
+    public function insertFinishingData(Request $req)
+    {
+      $validation = Validator::make($req->all(), [
+        'factory_id' => 'required',
+        'pcs_sew_wash' => 'required',
+        'pcs_fed' => 'required',
+        'pkd_pcs' => 'required',
+      ]);
+
+      $errors = array();
+      $success = '';
+      if($validation->fails()){
+        foreach($validation->messages()->getMessages() as $fieldName => $messages){
+          $errors [] = $messages;
+        }
+      }else{
+
+        $fkpi = new FKPI;
+        $fkpi->factory_id   = $req->input('factory_id');
+        $fkpi->pcs_sew_wash = $req->input('pcs_sew_wash');
+        $fkpi->pcs_fed      = $req->input('pcs_fed');
+        $fkpi->pkd_pcs      = $req->input('pkd_pcs');
+        $fkpi->save();
+
+        // Success Call Back on submission
+        $success = '<div class="alert alert-success">
+          Finishing Data Saved
+        </div>';
+      }
+      $output = array(
+        'error' => $errors,
+        'success' => $success
+      );
+      echo json_encode($output); // Success Message
+
+    }
+
+    public function insertStrengthData(Request $req)
+    {
+      $validation = Validator::make($req->all(), [
+        'factory_id'      => 'required',
+        'dhu'             => 'required',
+        'people_payrole'  => 'required',
+        'people_cont'     => 'required',
+        'overtime_pay'    => 'required',
+        'ot_sew'          => 'required',
+        'ot_fin'          => 'required',
+        'ot_cut'          => 'required',
+        'absent'          => 'required',
+      ]);
+
+      $errors = array();
+      $success = '';
+      if($validation->fails()){
+        foreach($validation->messages()->getMessages() as $fieldName => $messages){
+          $errors [] = $messages;
+        }
+      }else{
+
+        $qkpi = new QKPI;
+        $gkpi = new GKPI;
+
+        $qkpi->factory_id = $req->input('factory_id');
+        $qkpi->dhu = $req->input('dhu');
+        $gkpi->factory_id = $req->input('factory_id');
+        $gkpi->poeple_payrole = $req->input('people_payrole');
+        $gkpi->people_cont = $req->input('people_cont');
+        $gkpi->overtime_pay = $req->input('overtime_pay');
+        $gkpi->ot_sew = $req->input('ot_sew');
+        $gkpi->ot_fin = $req->input('ot_fin');
+        $gkpi->ot_cut = $req->input('ot_cut');
+        $gkpi->absent = $req->input('absent');
+        $qkpi->save();
+        $gkpi->save();
+
+        // Success Call Back on submission
+        $success = '<div class="alert alert-success">
+          Strength and Quality Data Saved
+        </div>';
+      }
+      $output = array(
+        'error' => $errors,
+        'success' => $success
+      );
+      echo json_encode($output); // Success Message
 
     }
 
