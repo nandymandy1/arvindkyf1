@@ -141,12 +141,10 @@
 
     $('#cutting_form').on('submit', (event) => {
       event.preventDefault();
-      var form_data = $(this).serialize();
-
       $.ajax({
         url:"{{route('ajaxdata.postcutting')}}",
         method: "POST",
-        data: form_data,
+        data: $('#cutting_form').serialize(),
         dataType: "json",
         success: (data) => // Success CallBack function
             {

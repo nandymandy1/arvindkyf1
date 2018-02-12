@@ -84,24 +84,24 @@
     });
 
     // To read the value from the no. of lines box and add the new text fields
-    $('#no_lines').focusout( ()=> {
-      var lines = $('#no_lines').val();
+    $('#no_line').focusout( ()=> {
+      var lines = $('#no_line').val();
       var input = '';
       for(var i = 1; i <= lines; i++){
         input += 'Line '+ i +': <input type="text" class="form-control" name="line'+ i +'" value="">';
       }
+
       $('#dynamic').html(input);
     });
 
 
     $('#sewing_form').on('submit', (event) => {
       event.preventDefault();
-      var form_data = $(this).serialize();
 
       $.ajax({
-        url:"{{route('ajaxdata.postsewing')}}",
+        url: "{{route('ajaxdata.postsewing')}}",
         method: "POST",
-        data: form_data,
+        data: $("#sewing_form").serialize(),
         dataType: "json",
         success: (data) => // Success CallBack function
             {
@@ -150,16 +150,16 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="forms" method="post" id="sewing_form">
+        <form class="forms" id="sewing_form">
           <span id="form_output"></span>
           <input type="hidden" name="factory_id" value="{{Auth::user()->factory_id}}">
           <div class="form-group">
             <label for="">Number of pieces loaded from cutting</label>
-            <input type="text" class="form-control" id="" name="no_loaded" value="">
+            <input type="text" class="form-control" id="" name="no_load" value="">
           </div>
           <div class="form-group">
             <label for="">No. of lines</label>
-            <input type="text" class="form-control" id="no_lines" name="no_lines" value="">
+            <input type="text" class="form-control" id="no_line" name="no_line" value="">
           </div>
           <div class="form-group" id="dynamic">
 
@@ -197,6 +197,7 @@
             <input type="text" class="form-control" id="" name="no_send" value="">
           </div>
           {{ csrf_field() }}
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

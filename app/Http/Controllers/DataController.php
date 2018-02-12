@@ -92,26 +92,30 @@ class DataController extends Controller
     }
     public function insertSewingData(Request $req)
     {
-      $elo = '';
-      for($i=1; $i <= (integer)$req->input('no_lines'); $i++){
-        $elo .= 'l'.$i.':'.$req->input('line'.$i);
-      }
-
-      dd($elo);
-
+      // dd($req->all());
       $validation = Validator::make($req->all(), [
-        'factory_id'=> 'required',
-        'no_load' => 'required',
-        'no_lines' => 'required',
-        'so_pl' => 'required',
-        'no_sew_mcs' => 'required',
-        'no_people'  => 'required',
-        'no_help'   => 'required',
-        'no_kaja'   => 'required',
-        'no_opr'    => 'required',
-        'sam'       => 'required',
-        'no_send'   => 'required',
+        'factory_id'  => 'required',
+        'no_load'     => 'required',
+        'no_line'    => 'required',
+        'so_pl'       => 'required',
+        'no_sew_mcs'  => 'required',
+        'no_people'   => 'required',
+        'no_help'     => 'required',
+        'no_kaja'     => 'required',
+        'no_opr'      => 'required',
+        'sam'         => 'required',
+        'no_send'     => 'required',
       ]);
+
+      $elo = '';
+      for($i=1; $i <= intval($req->input('no_line')); $i++){
+        if($i == intval($req->input('no_line'))){
+        $elo .= 'l'.$i.':'.$req->input('line'.$i);
+        }
+        else{
+          $elo .= 'l'.$i.':'.$req->input('line'.$i).'-';
+        }
+      }
 
       $errors = array();
       $success = '';
@@ -122,8 +126,8 @@ class DataController extends Controller
       }else{
         $skpi = new SKPI;
         $skpi->factory_id   = $req->input('factory_id');
-        $skpi->no_load      = $req->input('no_loaded');
-        $skpi->no_line      = $req->input('no_lines');
+        $skpi->no_load      = $req->input('no_load');
+        $skpi->no_line      = $req->input('no_line');
         $skpi->elo          = $elo;
         $skpi->so_pl        = $req->input('so_pl');
         $skpi->no_sew_mcs   = $req->input('no_sew_mcs');
