@@ -24,27 +24,27 @@ class DataController extends Controller
     public function insertCuttingData(Request $req)
     {
       $consumption = '';
-      if($req->has('shirt')){
-        $consumption .= 'S:' . $req->input('shirt');
+      if($req->input('shirt') != ''){
+        $consumption .= 'S:' . $req->input('shirt') .'-';
       }else{
-        $consumption .= 'S:' . '0';
+        $consumption .= 'S:' . '0-';
       }
-      if($req->has('woman')){
-        $consumption .= 'W:' . $req->input('woman');
+      if($req->input('woman') != ''){
+        $consumption .= 'W:' . $req->input('woman') . '-';
       }else{
-        $consumption .= 'W:' . '0';
+        $consumption .= 'W:' . '0-';
       }
-      if($req->has('knit')){
-        $consumption .= 'K:' . $req->input('knit');
+      if($req->input('knit') != ''){
+        $consumption .= 'K:' . $req->input('knit') .'-';
       }else{
-        $consumption .= 'K:' . '0';
+        $consumption .= 'K:' . '0-';
       }
-      if($req->has('jean')){
-        $consumption .= 'J:' . $req->input('jean');
+      if($req->input('jean') != ''){
+        $consumption .= 'J:' . $req->input('jean') .'-';
       }else{
-        $consumption .= 'J:' . '0';
+        $consumption .= 'J:' . '0-';
       }
-      if($req->has('trouser')){
+      if($req->input('trouser') != ''){
         $consumption .= 'T:' . $req->input('trouser');
       }else{
         $consumption .= 'T:' . '0';

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 
 use Auth;
+use Charts;
 use App\Factory;
 use App\User;
 use App\BMCkpi as BCKPI;
@@ -66,23 +67,78 @@ class HomeController extends Controller
 
                 case 'cutting':
                   $redirect = 'factory.cutting';
-                  $reports = CKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+
+                  // Dynamic database charts
+                  $ckpis = CKPI::all()->where('factory_id', Auth::user()->factory_id)->take(30);
+
+                        $dates = [];
+                        $cut_qty = [];
+                        $fusing_out = [];
+                        $pcs_e_s = [];
+                        $c_men = [];
+                        $men = 0;
+                        $machine = 0;
+                        $bandknife = [];
+                        $stknife = [];
+                        $fusing = [];
+
+                        foreach ($ckpis as $ckpi) {
+                          $dates [] = date("d/m/Y", strtotime($ckpi->created_at));
+                          $cut_qty[] = $ckpi->cut_qty;
+                          $fusing_out[] = $ckpi->fusing_out;
+                          $pcs_e_s[] = $ckpi->pcs_sew_emb;
+                          $men += $ckpi->people;
+                          $machine += $ckpi->mcs_used;
+                          $stknife[] = $ckpi->no_stknife;
+                          $bandknife[] = $ckpi->no_bandkife;
+                          $fusing[] = $ckpi->no_fusing;
+                        }
+
+                      $chart1 = Charts::create('donut', 'highcharts')
+                                ->title('Man Machine ratio')
+                                ->labels(['Man', 'Machines'])
+                                ->values([$men, $machine])
+                                ->height(300)
+                                ->responsive(false);
+
+                      $chart2 = Charts::multi('bar', 'highcharts')
+                              ->title('Cutting Staus')
+                              ->labels($dates)
+                              ->dataset('Cutting Quantity', $cut_qty)
+                              ->dataset('Fusing Output', $fusing_out)
+                              ->dataset('Pieces sent for washing or sewing', $pcs_e_s)
+                              ->height(300)
+                              ->responsive(false);
+
+                      $chart3 = Charts::multi('line', 'highcharts')
+                              ->title('Machine Ussage')
+                              ->labels($dates)
+                              ->dataset('Straight Knife', $stknife)
+                              ->dataset('Band Kife', $bandknife)
+                              ->dataset('Fusing Machines', $fusing)
+                              ->height(300)
+                              ->responsive(false);
+
+                      
+
+                          $charts[] = $chart1;
+                          $charts[] = $chart2;
+                          $charts[] = $chart3;
                   break;
 
                 case 'sewing':
                   $redirect = 'factory.sewing';
-                  $reports = SKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+                  $charts = sewingKPI(Auth::user()->factory_id);
                   break;
 
                 case 'finishing':
                   $redirect = 'factory.finishing';
-                  $reports = FKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+                  $charts = finishingKPI(Auth::user()->factory_id);
                   break;
 
                 case 'strength':
                   $redirect = 'factory.qua-strength';
-                  $reports[] = QKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
-                  $reporst[] = GKPI::where('factroy_id', Auth::user()->factory_id)->orderBy('created_at', 'desc')->take(30);
+                  $charts = qualityStrength(Auth::user()->factory_id);
                   break;
 
                 default:
@@ -97,12 +153,14 @@ class HomeController extends Controller
           }
           // Redirects to the default views
 
-        if(isset($reports)) {
-          return view($redirect)->with('reports', $reports);
+        if(isset($charts)) {
+          return view($redirect)->with('charts', $charts);
         }
         else{
           return view($redirect);
         }
 
     }
+
+
 }

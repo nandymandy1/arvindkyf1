@@ -42,3 +42,10 @@ Route::get('/admins/users', function(){
 
 
 // For Masters
+
+
+
+
+
+// Charts Test
+Route::get('/charts/test', 'ChartTestController@index');

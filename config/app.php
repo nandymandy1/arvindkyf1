@@ -149,6 +149,8 @@ return [
 
         // Yajra Laravel
         Yajra\DataTables\DataTablesServiceProvider::class,
+        // Laravel Charts Library goes Here
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -162,6 +164,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
 
     ],
 
@@ -215,6 +218,8 @@ return [
         'Carbon' => 'Carbon\Carbon',
         // Yajra Laravel
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        // Charts Facades goes Here
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
     ],
 

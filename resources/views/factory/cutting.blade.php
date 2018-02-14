@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
+@section('css')
+
+{!! Charts::styles() !!}
+
+@endsection
+
 
 @section('content')
+
+
+
 <div class="row">
   <div class="col-md-6">
       <h3 class="page-heading mb-4">Cuting</h3>
@@ -13,35 +22,25 @@
 <div class="row">
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Line chart</h5>
-        <canvas id="lineChart" style="height:250px"></canvas>
-      </div>
+      {!! $charts[0]->html() !!}
     </div>
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Bar chart</h5>
-        <canvas id="barChart" style="height:230px"></canvas>
-      </div>
-    </div>
+        {!! $charts[1]->html() !!}
   </div>
+</div>
 </div>
 <div class="row">
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Area chart</h5>
-        <canvas id="areaChart" style="height:250px"></canvas>
-      </div>
+      {!! $charts[2]->html() !!}
     </div>
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Doughnut chart</h5>
-        <canvas id="doughnutChart" style="height:250px"></canvas>
+        
       </div>
     </div>
   </div>
@@ -72,6 +71,13 @@
 
 
 @section('scripts')
+
+{!! Charts::scripts() !!}
+{!! $charts[0]->script() !!}
+{!! $charts[1]->script() !!}
+{!! $charts[2]->script() !!}
+
+
 <script type="text/javascript">
   $(document).ready(() => {
     var shirtbox = $('#shirts');
@@ -163,6 +169,7 @@
               {
                 $('#form_output').html(data.success);
                 $('#cutting_form')[0].reset();
+                $('#cuttingModal').hide();
                 $('#add_data').val('Add');
                 $('.modal_title').text('Add Today\'s Cutting Data');
                 shirt.hide();
