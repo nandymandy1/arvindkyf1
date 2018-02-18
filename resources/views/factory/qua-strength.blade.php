@@ -1,5 +1,9 @@
 @extends('layouts.app')
+@section('css')
 
+{!! Charts::styles() !!}
+
+@endsection
 
 @section('content')
 <div class="row">
@@ -10,20 +14,21 @@
     <button type="button" class="btn btn-md btn-primary pull-right" id="add" name="button" data-toggle="modal" data-target="#strengthModal">Add Today's Data</button>
   </div>
 </div>
+<div class="row" id="alert">
+
+</div>
 <div class="row">
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Line chart</h5>
-        <canvas id="lineChart" style="height:250px"></canvas>
+        {!! $charts[0]->html() !!}
       </div>
     </div>
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Bar chart</h5>
-        <canvas id="barChart" style="height:230px"></canvas>
+        {!! $charts[1]->html() !!}
       </div>
     </div>
   </div>
@@ -32,16 +37,14 @@
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Area chart</h5>
-        <canvas id="areaChart" style="height:250px"></canvas>
+        {!! $charts[2]->html() !!}
       </div>
     </div>
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Doughnut chart</h5>
-        <canvas id="doughnutChart" style="height:250px"></canvas>
+        {!! $charts[3]->html() !!}
       </div>
     </div>
   </div>
@@ -50,8 +53,7 @@
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Pie chart</h5>
-        <canvas id="pieChart" style="height:250px"></canvas>
+        {!! $charts[4]->html() !!}
       </div>
     </div>
   </div>
@@ -59,7 +61,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Scatter chart</h5>
-        <canvas id="scatterChart" style="height:250px"></canvas>
+
       </div>
     </div>
   </div>
@@ -71,7 +73,17 @@
 @endsection
 
 
+
 @section('scripts')
+
+  {!! Charts::scripts() !!}
+  {!! $charts[0]->script() !!}
+  {!! $charts[1]->script() !!}
+  {!! $charts[2]->script() !!}
+  {!! $charts[3]->script() !!}
+  {!! $charts[4]->script() !!}
+
+
 <script type="text/javascript">
   $(document).ready(() => {
 
@@ -105,10 +117,11 @@
                   }
                   else
                   {
-                    $('#form_output').html(data.success);
+                    $('#alert').html(data.success);
                     $('#strength_form')[0].reset();
                     $('#add_data').val('Add');
                     $('.modal_title').text('Add Today\'s Strength Data');
+                    $('#add').hide();
                   }
                 }
           });
@@ -139,6 +152,14 @@
             <input type="text" name="dhu" class="form-control" value="">
           </div>
           <div class="form-group">
+            <label for="">Quantity Inspected</label>
+            <input type="text" name="inspected" class="form-control" value="">
+          </div>
+          <div class="form-group">
+            <label for="">Quantities Failed</label>
+            <input type="text" name="failed" class="form-control" value="">
+          </div>
+          <div class="form-group">
             <label for="">Number of people at payrole</label>
             <input type="text" name="people_payrole" class="form-control" value="">
           </div>
@@ -163,7 +184,7 @@
             <input type="text" name="ot_fin" class="form-control" value="">
           </div>
           <div class="form-group">
-            <label for="">Number of people Absent</label>
+            <label for="">Number of People Absent</label>
             <input type="text" name="absent" class="form-control" value="">
           </div>
         </div>

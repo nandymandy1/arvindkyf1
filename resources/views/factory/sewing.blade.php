@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('css')
+
+{!! Charts::styles() !!}
+
+@endsection
 
 @section('content')
 <div class="row">
@@ -14,16 +19,14 @@
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Line chart</h5>
-        <canvas id="lineChart" style="height:250px"></canvas>
+        {!! $charts[0]->html() !!}
       </div>
     </div>
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Bar chart</h5>
-        <canvas id="barChart" style="height:230px"></canvas>
+        {!! $charts[1]->html() !!}
       </div>
     </div>
   </div>
@@ -32,16 +35,14 @@
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Area chart</h5>
-        <canvas id="areaChart" style="height:250px"></canvas>
+        {!! $charts[2]->html() !!}
       </div>
     </div>
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Doughnut chart</h5>
-        <canvas id="doughnutChart" style="height:250px"></canvas>
+        {!! $charts[3]->html() !!}
       </div>
     </div>
   </div>
@@ -72,6 +73,13 @@
 
 
 @section('scripts')
+
+  {!! Charts::scripts() !!}
+  {!! $charts[0]->script() !!}
+  {!! $charts[1]->script() !!}
+  {!! $charts[2]->script() !!}
+  {!! $charts[3]->script() !!}
+
 <script type="text/javascript">
   $(document).ready(() => {
 
@@ -167,6 +175,14 @@
           <div class="form-group">
             <label for="">Total sewing output</label>
             <input type="text" class="form-control" id="" name="so_pl" value="">
+          </div>
+          <div class="form-group">
+            <label for="">Today's Target Production</label>
+            <input type="text" class="form-control" id="" name="target" value="">
+          </div>
+          <div class="form-group">
+            <label for="">Today's Actual Production</label>
+            <input type="text" class="form-control" id="" name="actual" value="">
           </div>
           <div class="form-group">
             <label for="">Number of sewing machines Used</label>

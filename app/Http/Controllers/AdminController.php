@@ -33,7 +33,7 @@ class AdminController extends Controller
       public function addFactory(Request $req)
       {
         $validation = Validator::make([
-
+          
         ]);
       }
 }

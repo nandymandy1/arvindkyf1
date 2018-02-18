@@ -18,5 +18,7 @@ class DSkpi extends Model
       'no_opr',
       'sam',
       'no_send',
+      'target',
+      'actual'
     ];
 }

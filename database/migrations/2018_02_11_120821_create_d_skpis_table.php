@@ -27,6 +27,8 @@ class CreateDSkpisTable extends Migration
             $table->integer('no_opr');
             $table->integer('sam');
             $table->integer('no_send');
+            $table->integer('target');
+            $table->integer('actual');
             $table->timestamps();
         });
     }

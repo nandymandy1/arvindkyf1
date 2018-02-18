@@ -17,6 +17,8 @@ class CreateDQkpisTable extends Migration
             $table->increments('id');
             $table->integer('factory_id');
             $table->double('dhu');
+            $table->integer('failed');
+            $table->integer('inspected');
             $table->timestamps();
         });
     }

@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('css')
+
+{!! Charts::styles() !!}
+
+@endsection
 
 @section('content')
 <div class="row">
@@ -11,55 +16,10 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-6 col-12 mb-4">
+  <div class="col-md-12 col-lg-12">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Line chart</h5>
-        <canvas id="lineChart" style="height:250px"></canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-6 col-12 mb-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Bar chart</h5>
-        <canvas id="barChart" style="height:230px"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-6 col-12 mb-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Area chart</h5>
-        <canvas id="areaChart" style="height:250px"></canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-6 col-12 mb-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Doughnut chart</h5>
-        <canvas id="doughnutChart" style="height:250px"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-6 col-12 mb-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Pie chart</h5>
-        <canvas id="pieChart" style="height:250px"></canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-6 col-12 mb-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Scatter chart</h5>
-        <canvas id="scatterChart" style="height:250px"></canvas>
+        {!! $charts[0]->html() !!}
       </div>
     </div>
   </div>
@@ -72,6 +32,9 @@
 
 
 @section('scripts')
+
+  {!! Charts::scripts() !!}
+  {!! $charts[0]->script() !!}
 
 <script type="text/javascript">
   $(document).ready(()=>{

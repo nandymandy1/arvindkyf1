@@ -10,11 +10,12 @@ class DCkpi extends Model
       'factory_id',
       'cut_qty',
       'consumption',
-      'pcs_sew_emb',
+      'pcs_sew',
       'c_men', 'mcs_used',
       'no_bandkife',
       'no_stknife',
       'no_fusing',
-      'fusing_out'
+      'fusing_out',
+      'pcs_emb',
     ];
 }

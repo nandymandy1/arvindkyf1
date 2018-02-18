@@ -74,7 +74,8 @@ class DataController extends Controller
         $ckpi->cut_qty = $req->input('cut_qty');
         $ckpi->consumption = $consumption;
         $ckpi->people = $req->input('people');
-        $ckpi->pcs_sew_emb = $req->input('pcs_sew_emb');
+        $ckpi->pcs_sew = $req->input('pcs_sew');
+        $ckpi->pcs_emb = $req->input('pcs_emb');
         $ckpi->c_men = $req->input('c_men');
         $ckpi->mcs_used = $req->input('mcs_used');
         $ckpi->no_bandkife = $req->input('no_bandkife');
@@ -93,9 +94,9 @@ class DataController extends Controller
       );
       echo json_encode($output); // Success Message
     }
+
     public function insertSewingData(Request $req)
     {
-      // dd($req->all());
       $validation = Validator::make($req->all(), [
         'factory_id'  => 'required',
         'no_load'     => 'required',
@@ -108,15 +109,17 @@ class DataController extends Controller
         'no_opr'      => 'required',
         'sam'         => 'required',
         'no_send'     => 'required',
+        'target'      => 'required',
+        'actual'      => 'required',
       ]);
 
       $elo = '';
       for($i=1; $i <= intval($req->input('no_line')); $i++){
         if($i == intval($req->input('no_line'))){
-        $elo .= 'l'.$i.':'.$req->input('line'.$i);
+        $elo .= $req->input('line'.$i);
         }
         else{
-          $elo .= 'l'.$i.':'.$req->input('line'.$i).'-';
+          $elo .= $req->input('line'.$i).':';
         }
       }
 
@@ -128,6 +131,7 @@ class DataController extends Controller
         }
       }else{
         $skpi = new SKPI;
+
         $skpi->factory_id   = $req->input('factory_id');
         $skpi->no_load      = $req->input('no_load');
         $skpi->no_line      = $req->input('no_line');
@@ -140,6 +144,8 @@ class DataController extends Controller
         $skpi->no_opr       = $req->input('no_opr');
         $skpi->sam          = $req->input('sam');
         $skpi->no_send      = $req->input('no_send');
+        $skpi->target      = $req->input('target');
+        $skpi->actual      = $req->input('actual');
         $skpi->save();
         // Success Call Back on submission
         $success = '<div class="alert alert-success">
@@ -151,7 +157,6 @@ class DataController extends Controller
         'success' => $success
       );
       echo json_encode($output); // Success Message
-
 
     }
 
@@ -204,6 +209,8 @@ class DataController extends Controller
         'ot_fin'          => 'required',
         'ot_cut'          => 'required',
         'absent'          => 'required',
+        'inspected'       => 'required',
+        'failed'          => 'required'
       ]);
 
       $errors = array();
@@ -219,6 +226,8 @@ class DataController extends Controller
 
         $qkpi->factory_id = $req->input('factory_id');
         $qkpi->dhu = $req->input('dhu');
+        $qkpi->failed = $req->input('failed');
+        $qkpi->inspected = $req->input('inspected');
         $gkpi->factory_id = $req->input('factory_id');
         $gkpi->poeple_payrole = $req->input('people_payrole');
         $gkpi->people_cont = $req->input('people_cont');
@@ -245,5 +254,3 @@ class DataController extends Controller
 
 
 }
-
-?>

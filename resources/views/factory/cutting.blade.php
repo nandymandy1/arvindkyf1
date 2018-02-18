@@ -9,8 +9,6 @@
 
 @section('content')
 
-
-
 <div class="row">
   <div class="col-md-6">
       <h3 class="page-heading mb-4">Cuting</h3>
@@ -27,20 +25,20 @@
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
-        {!! $charts[1]->html() !!}
+      {!! $charts[1]->html() !!}
   </div>
 </div>
 </div>
 <div class="row">
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
-      {!! $charts[2]->html() !!}
+
     </div>
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        
+
       </div>
     </div>
   </div>
@@ -49,16 +47,14 @@
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Pie chart</h5>
-        <canvas id="pieChart" style="height:250px"></canvas>
+
       </div>
     </div>
   </div>
   <div class="col-lg-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Scatter chart</h5>
-        <canvas id="scatterChart" style="height:250px"></canvas>
+
       </div>
     </div>
   </div>
@@ -75,7 +71,7 @@
 {!! Charts::scripts() !!}
 {!! $charts[0]->script() !!}
 {!! $charts[1]->script() !!}
-{!! $charts[2]->script() !!}
+
 
 
 <script type="text/javascript">
@@ -169,7 +165,6 @@
               {
                 $('#form_output').html(data.success);
                 $('#cutting_form')[0].reset();
-                $('#cuttingModal').hide();
                 $('#add_data').val('Add');
                 $('.modal_title').text('Add Today\'s Cutting Data');
                 shirt.hide();
@@ -182,10 +177,7 @@
       });
     });
 
-
 });
-
-
 
 </script>
 
@@ -268,8 +260,12 @@
             <input type="text" name="people" class="form-control" value="">
           </div>
           <div class="form-group">
-            <label for="">Pieces sent for sewing or embroidary</label>
-            <input type="text" name="pcs_sew_emb" class="form-control" value="">
+            <label for="">Pieces sent for sewing</label>
+            <input type="text" name="pcs_sew" class="form-control" value="">
+          </div>
+          <div class="form-group">
+            <label for="">Pieces sent for Embroidary</label>
+            <input type="text" name="pcs_emb" class="form-control" value="">
           </div>
           <div class="form-group">
             <label for="">No. of Cutting Men</label>

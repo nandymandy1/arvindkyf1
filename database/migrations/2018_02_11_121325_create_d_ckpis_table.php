@@ -19,7 +19,8 @@ class CreateDCkpisTable extends Migration
             $table->integer('cut_qty');
             $table->string('consumption');
             $table->integer('people');
-            $table->integer('pcs_sew_emb');
+            $table->integer('pcs_sew');
+            $table->integer('pcs_emb');
             $table->integer('c_men');
             $table->integer('mcs_used');
             $table->integer('no_bandkife');
